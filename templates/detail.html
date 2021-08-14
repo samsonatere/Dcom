@@ -1,0 +1,16 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="col-md-5 mx-auto col-10">
+    <h2>{{ object.name }}</h2>
+    <h4>Price <strong>&#8358;{{ object.price }}</strong></h4>
+        <img class="thumbnail" src="{{product.imageURL}}">
+    <p>Posted by: <strong>{{ object.poster }}</strong></p>
+</div>
+{% if user.is_authenticated %}
+<p><a href="{% url 'edit' product.pk %}">Edit</a> | 
+    <a href="{% url 'delete' product.pk %}">Delete</a>
+</p>
+{% endif %}
+<p>Back to <a href="{% url 'store' %}">Store</a>.</p>
+{% endblock content %}
