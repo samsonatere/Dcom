@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'store',
     'accounts',
     'goods',
+    'pages',
     # 3rd Party
     'crispy_forms',
 ]
@@ -141,8 +142,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/image')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = 'cart'
-LOGOUT_REDIRECT_URL = 'cart'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
