@@ -13,6 +13,10 @@ from environs import Env
 env = Env()
 env.read_env()
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 from pathlib import Path
 import os
 import django_heroku
@@ -49,6 +53,7 @@ INSTALLED_APPS = [
     'goods',
     # 3rd Party
     'crispy_forms',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +151,9 @@ LOGOUT_REDIRECT_URL = 'home'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
+
+cloudinary.config( 
+  cloud_name = "dfxj6x6ch", 
+  api_key = "596468882181954", 
+  api_secret = "9xpI6MFrOBWEgVhyIw2-JMxCO7g",
+)

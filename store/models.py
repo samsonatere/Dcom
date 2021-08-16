@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.urls import reverse
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -18,7 +19,7 @@ class Product(models.Model):
 	name = models.CharField(max_length=200)
 	price = models.DecimalField(max_digits=9, decimal_places=2)
 	digital = models.BooleanField(default=False,null=True, blank=True)
-	image = models.ImageField(null=True, blank=True)
+	image = CloudinaryField(null=True, blank=True)
 	poster = models.ForeignKey( get_user_model(), on_delete=models.CASCADE, )
 
 	def __str__(self):
