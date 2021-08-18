@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ppYe9V-Ti7rOyC9TGn93Mrr5ADSStnk1xNEBfN8J_G4'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -155,5 +155,5 @@ del DATABASES['default']['OPTIONS']['sslmode']
 cloudinary.config( 
   cloud_name = "dfxj6x6ch", 
   api_key = "596468882181954", 
-  api_secret = "9xpI6MFrOBWEgVhyIw2-JMxCO7g",
+  api_secret = env.str("CLOUD_SECRET_KEY")
 )
