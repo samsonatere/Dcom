@@ -4,7 +4,11 @@ import json
 import datetime
 from .models import *
 from .utils import cookieCart, cartData, guestOrder
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
+from accounts.decorators import unauthenticated_user #allowed_users, admin_only
 
+@login_required(login_url='login')
 def store(request):
 	data = cartData(request)
 
@@ -17,6 +21,7 @@ def store(request):
 	return render(request, 'store/store.html', context)
 
 
+@login_required(login_url='login')
 def cart(request):
 	data = cartData(request)
 
@@ -27,6 +32,7 @@ def cart(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/cart.html', context)
 
+@login_required(login_url='login')
 def checkout(request):
 	data = cartData(request)
 	
@@ -37,6 +43,7 @@ def checkout(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'store/checkout.html', context)
 
+@login_required(login_url='login')
 def updateItem(request):
 	data = json.loads(request.body)
 	productId = data['productId']
@@ -62,6 +69,7 @@ def updateItem(request):
 
 	return JsonResponse('Item was added', safe=False)
 
+@login_required(login_url='login')
 def processOrder(request):
 	transaction_id = datetime.datetime.now().timestamp()
 	data = json.loads(request.body)

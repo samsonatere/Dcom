@@ -5,12 +5,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .form import CreateUserForm
+from store.utils import cookieCart, cartData, guestOrder
 from .decorators import unauthenticated_user #allowed_users, admin_only
 
 
 @unauthenticated_user
 def signupPage(request):
 
+	data = cartData(request)
+	cartItems = data['cartItems']
 	form = CreateUserForm()
 	if request.method == 'POST':
 		form = CreateUserForm(request.POST)
@@ -18,20 +21,19 @@ def signupPage(request):
 			user = form.save()
 			username = form.cleaned_data.get('username')
 
-			group = Group.objects.get(name='customer')
-			user.groups.add(group)
-
 			messages.success(request, 'Account was created for ' + username)
 
 			return redirect('login')
 		
 
-	context = {'form':form}
+	context = {'form':form, 'cartItems':cartItems}
 	return render(request, 'registration/signup.html', context)
 
 @unauthenticated_user
 def loginPage(request):
-
+	
+	data = cartData(request)
+	cartItems = data['cartItems']
 	if request.method == 'POST':
 		username = request.POST.get('username')
 		password =request.POST.get('password')
@@ -44,7 +46,7 @@ def loginPage(request):
 		else:
 			messages.info(request, 'Username OR password is incorrect')
 
-	context = {}
+	context = {'cartItems':cartItems}
 	return render(request, 'registration/login.html', context)
 
 def logoutUser(request):
